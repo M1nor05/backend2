@@ -23,24 +23,24 @@ import { UsersModule } from './profil/profil.module';
     isGlobal: true, 
      load: [databaseConfig], 
     }),
-     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        host: config.get<string>('database.host'),
-       port: parseInt(config.get<string>('database.port') ?? '5432', 10),
-        username: config.get<string>('database.username'),
-        password: config.get<string>('database.password'),
-        database: config.get<string>('database.database'),
-        autoLoadEntities: true,
-        synchronize: process.env.NODE_ENV !== 'production',
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }),
-    }),AuthModule,AdminAuthModule,BusinessAnalysisModule,BudgetModule,MarketIntelligenceModule,MarketPriceModule,PartnerModule,GuidesModule,UserModule,CRMRequestModule,UsersModule],
+   TypeOrmModule.forRootAsync({
+  imports: [ConfigModule],
+  inject: [ConfigService],
+  useFactory: (config: ConfigService) => ({
+    type: 'postgres',
+    host: config.get<string>('database.host'),
+    port: config.get<number>('database.port'),
+    username: config.get<string>('database.username'),
+    password: config.get<string>('database.password'),
+    database: config.get<string>('database.database'),
+    autoLoadEntities: true,
+    synchronize: true,  // local test uchun true
+  }),
+})
+,AuthModule,AdminAuthModule,BusinessAnalysisModule,BudgetModule,MarketIntelligenceModule,MarketPriceModule,PartnerModule,GuidesModule,UserModule,CRMRequestModule,UsersModule],
   controllers: [],
   providers: [],
 })
+  
+  
 export class AppModule {}
