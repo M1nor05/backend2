@@ -1,5 +1,5 @@
 // auth/dto/register.dto.ts
-import { IsEmail, IsNotEmpty, MinLength, IsEnum } from 'class-validator';
+import { IsEmail, IsNotEmpty, MinLength, IsEnum, IsOptional, IsString } from 'class-validator';
 
 export enum BusinessType {
   SAVDO = 'Savdo',
@@ -29,8 +29,10 @@ export class RegisterDto {
     businessType: BusinessType;
     
 
-   @IsNotEmpty()
-  inn: string;
+  @IsOptional()
+@IsString()
+inn?: string;
+
 
 
 }
